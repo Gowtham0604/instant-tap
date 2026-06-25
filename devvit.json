@@ -17,29 +17,32 @@
     "dir": "dist/server",
     "entry": "index.cjs"
   },
+  "permissions": {
+    "reddit": {
+      "asUser": ["SUBMIT_COMMENT"]
+    }
+  },
   "menu": {
     "items": [
       {
         "label": "Create a new post",
-        "description": "instant-tap",
+        "description": "Create today's daily challenge post",
         "location": "subreddit",
         "forUserType": "moderator",
         "endpoint": "/internal/menu/post-create"
-      },
-      {
-        "label": "Example form",
-        "description": "Show a simple form",
-        "location": "subreddit",
-        "forUserType": "moderator",
-        "endpoint": "/internal/menu/example-form"
       }
     ]
   },
-  "forms": {
-    "exampleForm": "/internal/form/example-submit"
-  },
   "triggers": {
     "onAppInstall": "/internal/triggers/on-app-install"
+  },
+  "scheduler": {
+    "tasks": {
+      "daily-challenge": {
+        "endpoint": "/internal/cron/daily-challenge",
+        "cron": "0 0 * * *"
+      }
+    }
   },
   "scripts": {
     "dev": "vite build --watch",

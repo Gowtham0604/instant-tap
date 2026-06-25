@@ -1,7 +1,8 @@
-import { reddit } from '@devvit/web/server';
+import { createDailyChallengePost } from './daily';
+import { generateDailyChallenge } from '../../shared/daily';
 
 export const createPost = async () => {
-  return await reddit.submitCustomPost({
-    title: 'instant-tap',
-  });
+  const challenge = generateDailyChallenge();
+  const { postId } = await createDailyChallengePost(challenge);
+  return { id: postId };
 };
